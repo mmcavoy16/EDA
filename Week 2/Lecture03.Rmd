@@ -1,0 +1,498 @@
+---
+title: "Getting started with R, II"
+author: "P. McDonald"
+date: "August 29, 2016"
+transition: rotate
+incremental: true
+output: ioslides_presentation
+---
+
+##Last time
+
+*    Data types
+     +    character, integer, numeric, logical, factor
+*    Data structures
+     +    vectors, matrices, data frames, lists
+*    Tools to extract structural information
+     +    class, str, summary
+     +    subsetting
+*    Vectorization     
+        
+##Solution to second exercise
+
+You were asked to extract some information from an XML file.
+
+Step 1 is to figure out how to read the file.  Google helps.  
+
+```{r}
+## Pat McDonald   08/23/2016
+## Script to download a XML file and load to memory
+
+##load required library
+library(XML)
+
+##assign url
+url <-  "http://www.cs.washington.edu/research/xmldatasets/data/courses/reed.xml"
+
+##read file
+Reed.xml <- xmlTreeParse(url)
+
+```
+
+##Solution to second exercise
+Next, determine the structure of the file you have read into memory:
+
+```{r}
+##continuing solution of exercise 2
+class(Reed.xml)
+```
+Note that the return is not a description of one of the data structures described in the previous lecture.
+
+##Solution to second exercise
+Next, determine the structure of the file you have read into memory:
+
+```{r}
+##continuing solution of exercise 2
+class(Reed.xml)
+```
+
+Note that the return is not a description of one of the data structures described in the previous lecture.
+
+Google something useful: "converting xml to a data frame in R"
+
+##Solution to second exercise
+Next, determine the structure of the file you have read into memory:
+
+```{r}
+##continuing solution of exercise 2
+class(Reed.xml)
+```
+
+Note that the return is not a description of one of the data structures described in the previous lecture.
+
+Google something useful: "converting xml to a data frame in R"
+
+The first stackoverflow entry gives a function which might work ("xmlToDataFrame()"), but suggests there may be problems. 
+
+##Solution to second exercise
+
+Stackoverflow suggests that we convert the XML document to a list:
+
+```{r}
+##continuing exercise 2
+##convert to list
+LReed <- xmlToList(Reed.xml)
+class(LReed)
+```
+
+##Solution to second exercise
+
+Stackoverflow suggests that we convert the XML document to a list:
+
+```{r}
+##continuing exercise 2
+##convert to list
+LReed <- xmlToList(Reed.xml)
+class(LReed)
+```
+
+We can extract a little more information using the "dim" tool:
+
+```{r}
+##continuing exercise 2
+dim(LReed)
+```
+
+##Solution to second exercise
+
+Thus, the matrix LReed has `r nrow(LReed)` rows and `r ncol(LReed)` columns.  
+
+The name of a row or a column is a useful piece of information.  Odds are that there is a tool to extract such information.  Google it.
+
+##Solution to second exercise
+
+Thus, the matrix LReed has `r nrow(LReed)` rows and `r ncol(LReed)` columns.  
+
+The name of a row or a column is a useful piece of information.  Odds are that there is a tool to extract such information.  Google it.
+
+```{r}
+##continuing exercise 2
+rownames(LReed)
+```
+
+##Solution to second exercise
+Now we can subset to extract the required information.
+
+Begin by extracting (subsetting) the row corresponding to subjects.  There are a couple of ways to do this.
+
+```{r}
+##continuing exercise 2
+ReedSubjects <- LReed[2,]
+class(ReedSubjects)
+str(ReedSubjects)
+```
+
+##Solution to second exercise
+
+It looks as though we are on the correct path.  What we need is a tool which "extracts unique entries" from our list.
+
+Again, this would be something useful to lots of people, so there is probably already a utility that solves the problem.
+
+##Solution to second exercise
+
+It looks as though we are on the correct path.  What we need is a tool which "extracts unique entries" from our list.
+
+Again, this would be something useful to lots of people, so there is probably already a utility that solves the problem.
+
+Google "extracting unique entries in R".  
+
+##Solution to second exercise
+
+It looks as though we are on the correct path.  What we need is a tool which "extracts unique entries" from our list.
+
+Again, this would be something useful to lots of people, so there is probably already a utility that solves the problem.
+
+Google "extracting unique entries in R".  
+
+https://stat.ethz.ch/R-manual/R-devel/library/base/html/unique.html
+
+##Solution to second exercise
+
+It looks as though we are on the correct path.  What we need is a tool which "extracts unique entries" from our list.
+
+Again, this would be something useful to lots of people, so there is probably already a utility that solves the problem.
+
+Google "extracting unique entries in R".  
+
+https://stat.ethz.ch/R-manual/R-devel/library/base/html/unique.html
+
+The function "unique" takes a vector or data frame as an input.  
+
+We have a list.
+
+There is a tool to solve this problem:
+
+##Solution to second exercise
+
+The command "unlist" converts a list to a vector consisting of the atomic components of the list.
+
+```{r}
+##continuing exercise 2
+RS <- unlist(ReedSubjects)
+str(RS)
+```
+
+##Solution to second exercise
+
+The command "unlist" converts a list to a vector consisting of the atomic components of the list.
+
+```{r}
+##continuing exercise 2
+RS <- unlist(ReedSubjects)
+str(RS)
+```
+
+Now we just compute the number of unique subjects by computing the length of the vector of unique entries in "RS"
+
+```{r}
+##continuing exercise 2
+length(unique(RS))
+```
+
+##Solution to second exercise
+
+Our approach to the first problem suggests we try a similar approach to the second problem:
+
+```{r}
+##continuing exercise 2
+##emulate
+ReedInstructors <- LReed[7,]
+class(ReedInstructors)
+```
+
+##Solution to second exercise
+
+We can take a look at the first few entries:
+```{r}
+##continuing exercise 2
+head(ReedInstructors)
+```
+
+##Solution to second exercise
+
+Proceeding as before:
+
+```{r}
+##continuing exercise 2
+RI <- unlist(ReedInstructors)
+str(RI)
+```
+
+This is a little odd:  There are fifteen fewer components in the instructor vector than there were in the subject vector.
+
+```{r}
+head(RI)
+```
+
+##Solution to the second exercise
+
+It seems that there is an unintended consequence of using unlist:  It truncates NULL entries.  
+
+##Solution to the second exercise
+
+It seems that there is an unintended consequence of using unlist:  It truncates NULL entries.  
+
+Since we started with `r length(ReedInstructors)` columns and ended with `r length(RI)` columns, we know that there are precisely `r length(ReedInstructors)-length(RI)` NULL entries.
+
+##Solution to the second exercise
+
+It seems that there is an unintended consequence of using unlist:  It truncates NULL entries.  
+
+Since we started with `r length(ReedInstructors)` columns and ended with `r length(RI)` columns, we know that there are precisely `r length(ReedInstructors)-length(RI)` NULL entries.
+
+Similarly, we can compute the number of unique instructor entries (not counting NULL as an entry)
+
+```{r}
+length(unique(RI))
+```
+
+##A little munging
+
+There are often reasons to keep a marker for the place where a NULL value occurs.  To do so, google the phenomena:
+
+##A little munging
+
+There are often reasons to keep a marker for the place where a NULL value occurs.  To do so, google the phenomena:
+
+There are a couple of options for inserting NA for NULL: one approach is to use coercion while the other is to use a feature of vectorization.
+
+##A little munging
+
+There are often reasons to keep a marker for the place where a NULL value occurs.  To do so, google the phenomena:
+
+There are a couple of options for inserting NA for NULL: one approach is to use coercion while the other is to use a feature of vectorization.
+
+We will go with the latter.
+
+##A little munging
+
+There are often reasons to keep a marker for the place where a NULL value occurs.  To do so, google the phenomena:
+
+There are a couple of options for inserting NA for NULL: one approach is to use coercion while the other is to use a feature of vectorization.
+
+We will go with the latter.
+
+To do so requires us to introduce some new tricks.
+
+##Functions
+
+There are a number of built-in functions which can be very useful:
+
+http://www.statmethods.net/management/functions.html
+
+##Functions
+
+There are a number of built-in functions which can be very useful:
+
+http://www.statmethods.net/management/functions.html
+
+It is also possible to define your own functions:
+
+http://www.statmethods.net/management/userfunctions.html
+
+##Functions
+
+There are a number of built-in functions which can be very useful:
+
+http://www.statmethods.net/management/functions.html
+
+It is also possible to define your own functions:
+
+http://www.statmethods.net/management/userfunctions.html
+
+In addition to these options, there is a suite of functions which allow a user to perform a given function to every element of a given data structure.  
+
+##Functions
+
+There are a number of built-in functions which can be very useful:
+
+http://www.statmethods.net/management/functions.html
+
+It is also possible to define your own functions:
+
+http://www.statmethods.net/management/userfunctions.html
+
+In addition to these options, there is a suite of functions which allow a user to perform a given function to every element of a given data structure.  
+
+This suite is important: it allows users to exploit vectorization.
+
+##sapply
+The function sapply provides an example of how to leverage vectorization.
+
+##sapply
+The function sapply provides an example of how to leverage vectorization.
+
+sapply examines every entry of a list, performs a prescribed action on the element, and returns a vector of results.
+
+##sapply
+The function sapply provides an example of how to leverage vectorization.
+
+sapply examines every entry of a list, performs a prescribed action on the element, and returns a vector of results.
+
+Consider the following code:
+
+```{r}
+##determine the location of NULL entries, create a 
+##logical vector which encodes the data
+
+labels <- sapply(ReedInstructors,is.null)
+class(labels)
+```
+
+##Using labels
+
+We can use the labels to mark locations where we will insert NA to replace NULL.
+
+```{r}
+##copy NA over locations where NULL is located and unlist
+
+RIc <- ReedInstructors
+RIc[labels] <- NA
+RIwNA <- unlist(RIc)
+str(RIwNA)
+```
+
+##A second solution to second exercise
+
+Now we can finish the problem
+
+We already know the number of NULL instructors:
+```{r}
+sum(labels)
+```
+Thus, there are `r sum(labels)` courses with NULL as the listed instructor.
+
+##A second solution to second exercise
+
+Similarly,
+```{r}
+length(unique(RIwNA))
+length(unique(RI))
+```
+and there are `r length(unique(RI))` unique instructors where we disregard NULL or NA entries.
+
+##The apply suite
+
+The apply suite consists of three functions: apply, sapply, and lapply.
+
+##The apply suite
+
+The apply suite consists of three functions: apply, sapply, and lapply.
+
+There are many interesting examples (and some not so interesting) of how one might use the apply suite to get things done.
+
+##The apply suite
+
+The apply suite consists of three functions: apply, sapply, and lapply.
+
+There are many interesting examples (and some not so interesting) of how one might use the apply suite to get things done.
+
+Which element of the suite you use depends on how the input is structured, what the output is to look like, and what is to be done.
+
+For details, here is a good place to start:
+
+https://www.r-bloggers.com/using-apply-sapply-lapply-in-r/
+
+##Flow control
+
+It is possible to avoid using the apply suite, choosing instead to use conditionals and looping:
+
+```{r}
+##loops to create labels
+
+L <- as.logical(rep(0,703))
+for (i in 1:length(ReedInstructors)) { 
+  if (is.null(ReedInstructors[[i]]) ) {
+    L[i] <- TRUE}
+}
+sum(L)
+```
+
+##Flow control
+
+It is possible to avoid using the apply suite, choosing instead to use conditionals and looping:
+
+```{r}
+##loops to create labels
+
+L <- as.logical(rep(0,length(ReedInstructors)))
+for (i in 1:length(ReedInstructors)) { 
+  if (is.null(ReedInstructors[[i]]) ) {
+    L[i] <- TRUE}
+}
+sum(L)
+```
+
+This is not a good idea.
+
+For more on syntax for flow control:  http://www.statmethods.net/management/controlstructures.html
+
+##Another problem
+
+For what collection of subjects is there an entry of NULL for at least one  instructor? 
+
+We have the required data, we just need to format things in a fashion which makes answering the question easy.
+
+One option is to just create a data frame and subset:
+
+```{r}
+##build a data frame
+DFR <- data.frame(RS,RIwNA)
+str(DFR)
+```
+
+##Another problem
+
+Subset to extract the appropriate vector:
+
+```{r}
+##subsetting to extract the correct data
+NullSubjects <- DFR[is.na(RIwNA),1]
+##summarize the outcome
+summary(NullSubjects)
+```
+##Another problem
+
+Finally, answer the question
+
+```{r}
+##print the result to screen
+cat('There are', length(unique(NullSubjects)), 'distinct subjects that 
+    have at least one instance of a NULL instructor')
+Answer <- paste('There are', length(unique(NullSubjects)), 'distinct subjects that have at least one instance of a NULL instructor', sep=" ")
+```
+
+```{r}
+Answer
+```
+
+##Yet more fun
+Being able to count is important.
+
+##Yet more fun
+Being able to count is important.
+
+How many distinct math instructors offered courses?
+
+##Yet more fun
+Being able to count is important.
+
+How many distinct math instructors offered courses?
+
+```{r}
+##to count: first subset, then unique, then length
+length(unique(DFR[which(RS == "MATH"),2]))
+```
+
+
+

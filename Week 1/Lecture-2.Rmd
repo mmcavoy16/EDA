@@ -1,0 +1,651 @@
+---
+title: "Getting started with R"
+author: "P. McDonald"
+date: "August 25, 2016"
+transition: rotate
+incremental: true
+output: ioslides_presentation
+---
+
+##Last time
+
+*    An introduction to terms
+*    Course description
+*    R Markdown
+*    Reading files in R
+    +   Example: reading csv
+        
+##Solution to first exercise, part 1
+
+Here is a script which downloads the required csv and reads it into memory:
+
+```{r, eval=FALSE}
+## Pat McDonald   08/23/2016
+## Script to load a csv file to memory
+
+##assign url
+url <-  "https://data.somervillema.gov/api/views/j2bq-38ev/rows.csv"
+
+##read the file
+
+TrafficData.csv <- read.csv(url, header=TRUE)
+
+```
+
+##Doing a little more
+
+We can download the data and read it into memory
+```{r,eval=FALSE}
+##continue previous code to download a csv file
+
+##download to appropriate directory
+download.file(url, "~/Classes/16-17/Fall/EDA2016/Data/SMATrafficViolation.csv")
+
+##read file
+TrafficData.csv <- read.csv("~/Classes/16-17/Fall/EDA2016/Data/SMATrafficViolation.csv", header=TRUE)
+
+##Provenance
+SMATrafficViolationProvenance <- paste("Downloaded from", url, "At", Sys.time(), sep = " ")
+write(SMATrafficViolationProvenance, file="~/Classes/16-17/Fall/EDA2016/Data/SMATrafficViolation")
+```
+
+##Solution to first exercise, part 2
+
+This problem was a little more challenging.
+
+##Solution to first exercise, part 2
+
+This problem was a little more challenging.
+
+Assuming you did the first part, there is an obvious structural change which must occur:  it is unlikely that read.csv will work for json files.
+
+There are two ways to proceed:
+
+##Solution to first exercise, part 2
+
+This problem was a little more challenging.
+
+Assuming you did the first part, there is an obvious structural change which must occur:  it is unlikely that read.csv will work for json files.
+
+There are two ways to proceed:
+
+1.    Read the R manual
+
+##Solution to first exercise, part 2
+
+This problem was a little more challenging.
+
+Assuming you did the first part, there is an obvious structural change which must occur:  it is unlikely that read.csv will work for json files.
+
+There are two ways to proceed:
+
+1.    Read the R manual
+2.    Google something like "read JSON in R"
+
+##Solution to first exercise, part 2
+
+This problem was a little more challenging.
+
+Assuming you did the first part, there is an obvious structural change which must occur:  it is unlikely that read.csv will work for json files.
+
+There are two ways to proceed:
+
+1.    Read the R manual
+2.    Google something like "read JSON in R"
+
+The second option is easier.  
+
+##Google to the rescue
+
+Run the google search and look for a stack exchange answer.
+
+Under the title "Parse JSON with R", you will find a number of replies.
+
+Start with the one having the most up-votes.
+
+##Google to the rescue
+
+Run the google search and look for a stack exchange answer.
+
+Under the title "Parse JSON with R", you will find a number of replies.
+
+Start with the one having the most up-votes.
+
+What it says is:
+
+1.    There is a package that will solve the problem
+2.    There is an update which suggests that the second package is even more straightforward.
+
+##Google to the rescue
+
+Run the google search and look for a stack exchange answer.
+
+Under the title "Parse JSON with R", you will find a number of replies.
+
+Start with the one having the most up-votes.
+
+What it says is:
+
+1.    There is a package that will solve the problem
+2.    There is an update which suggests that the second package is even more straightforward.
+
+The second most up-votes also references the second package.
+
+##Installing packages
+
+Installing packages in R is really easy - especially from R Studio.  
+
+Just select packages in the lower right corner, select install, type the name of the package (enable dependencies) and your done.
+
+It's also easy to install from the R command line (google it).
+
+##Code for exercise 1, part 2
+
+```{r, eval = FALSE}
+## Pat McDonald   08/23/2016
+## Script to download a json file and load to memory
+
+##load required library
+library(jsonlite)
+##assign url
+url <-  "https://data.somervillema.gov/api/views/j2bq-38ev/rows.json"
+
+##read file
+TrafficData.json <- fromJSON(txt=url)
+
+save(TrafficData.json, file="~/Classes/16-17/Fall/EDA2016/Data/SMATrafficViolation.json")
+
+##Provenance
+SMATrafficViolationJSONProvenance <- paste("Downloaded from", url, "At", Sys.time(), sep = " ")
+write(SMATrafficViolationJSONProvenance, file="~/Classes/16-17/Fall/EDA2016/Data/SMATrafficViolationJSON")
+```
+
+##Other tools for reading data
+
+There are a variety of tools for importing data into R.
+
+read.table is a function which subsumes a number of other functions.
+
+##Other tools for reading data
+
+There are a variety of tools for importing data into R.
+
+read.table is a function which subsumes a number of other functions.
+
+For example, it can be used to download csv files:
+
+```{r, eval=FALSE}
+url <-  "https://data.somervillema.gov/api/views/j2bq-38ev/rows.csv"
+
+##read the file
+
+TrafficData.csv <- read.table(url, header=TRUE, sep=",")
+```
+You can find additional information at the man pages and in a variety of tutorials, including 
+
+https://www.datacamp.com/community/tutorials/r-data-import-tutorial#gs.aKMomYE 
+
+##What to do when the data is big
+
+One of the unfortunate limitations of R is its handling of large data.
+
+Reading to memory is problematic for a variety of reasons.
+
+##What to do when the data is big
+
+One of the unfortunate limitations of R is its handling of large data.
+
+Reading to memory is problematic for a variety of reasons.
+
+There are a number of new packages which address the well known limitations (eg, data.table)
+
+##What to do when the data is big
+
+One of the unfortunate limitations of R is its handling of large data.
+
+Reading to memory is problematic for a variety of reasons.
+
+There are a number of new packages which address the well known limitations (eg, data.table)
+
+
+A nice source of information for importing large data sets into R can be found on the Rblogger site:
+
+https://www.r-bloggers.com/importing-data-into-r-part-two/
+
+##RTM
+
+In th old days, there were more letters:
+
+https://cran.r-project.org/doc/manuals/r-release/R-data.pdf
+
+
+
+##Next step: understanding what we have in memory
+
+Every language, R included, has an associated collection of atomic data types.
+
+##Next step: understanding what we have in memory
+
+Every language, R included, has an associated collection of atomic data types.
+
+For R, these types are: numeric, integer, character, logical and factor.
+
+The data structures of R are built on top of its atomic data types.
+
+##Next step: understanding what we have in memory
+
+Every language, R included, has an associated collection of atomic data types.
+
+For R, these types are: numeric, integer, character, logical and factor (actually an attribute setting).
+
+The data structures of R are built on top of its atomic data types.
+
+There are four primary data structures that we will use during the course of our study: vectors, matrices, data frames and lists.
+
+##Next step: understanding what we have in memory
+
+Every language, R included, has an associated collection of atomic data types.
+
+For R, these types are: numeric, integer, character, logical and factor (actually an attribute setting).
+
+The data structures of R are built on top of its atomic data types.
+
+There are four primary data structures that we will use during the course of our study: vectors, matrices, data frames and lists.
+
+Here is a good reference:
+
+http://adv-r.had.co.nz/Data-structures.html
+
+
+
+##Keeping track of data structures
+
+It's very important to keep these data structures straight.  
+
+There are a couple of useful functions for doing this:
+
+##Keeping track of data structures
+
+It's very important to keep these data structures straight.  
+
+There are a couple of useful functions for doing this:
+
+*    The class function, *class()*, which returns the class of the R object which is its argument and 
+*    The structure function, *str()*, which provides a much richer description of its argument.  
+*    The summary function, *summary()*, which provides various statistical model fit summaries of R objects.
+
+https://www.r-bloggers.com/exploratory-data-analysis-useful-r-functions-for-exploring-a-data-frame/
+
+##Data structures: vectors
+
+The most important data structure of R is a *vector.*  A vector is a tuple whose elements consist of a single atomic data type.
+
+```{r}
+v1 <- c("h")
+v2 <- c("h","t")
+v3 <- c("ht")
+```
+
+The str() function gives us information on the structure of the above
+
+##Using the structure function
+
+```{r}
+str(v1) 
+str(v2)
+str(v3)
+```
+
+Thus, each of the above is a vector with v1 and v3 being atomic.
+
+
+##Vectors and type conversion
+
+Thus, its easy to guess the structure of one of the objects currently in our working memory:
+
+```{r, eval=FALSE}
+str(url)
+```
+
+##Vectors and type conversion
+
+Thus, its easy to guess the structure of one of the objects currently in our working memory:
+
+```{r, eval=FALSE}
+str(url)
+```
+
+Suppose we change a component of v2:
+
+```{r}
+v2[2] <- 1
+v2
+```
+
+##Vectors and type conversion
+
+Thus, its easy to guess the structure of one of the objects currently in our working memory:
+
+```{r, eval=FALSE}
+str(url)
+```
+
+Suppose we change a component of v2:
+
+```{r}
+v2[2] <- 1
+v2
+```
+
+Note what has happened: R has interpreted our change to mean that we intended to change the character "t" to the character "1".  
+
+##Vectors and type conversion
+
+Thus, its easy to guess the structure of one of the objects currently in our working memory:
+
+```{r, eval=FALSE}
+str(url)
+```
+
+Suppose we change a component of v2:
+
+```{r}
+v2[2] <- 1
+v2
+```
+
+Note what has happened: R has interpreted our change to mean that we intended to change the character "t" to the character "1".  
+
+This is called *coercion* and it can lead to problems.
+
+
+##Vectors and vectorization
+
+R is *vectorized* language: most of the functions of R are designed to take vectors as an input and act on the components of the input.  
+
+##Vectors and vectorization
+
+R is *vectorized* language: most of the functions of R are designed to take vectors as an input and act on the components of the input.  
+
+R does this very quickly: if you aren't exploiting vectorization then with very high probability, you are not optimizing.
+
+##Matrices
+
+Matrices are collections of vectors which are all of the same type.
+
+##Matrices
+
+Matrices are collections of vectors which are all of the same type.
+
+Here is an example of a matrix built from this year's Calculus Readiness Test results:
+
+```{r}
+load("~/Classes/16-17/Fall/EDA2016/Data/M1")
+str(M1)
+head(M1)
+```
+
+##Matrices
+We can look at the first row of M1
+
+```{r}
+str(M1[1,])
+```
+
+It is a vector of integers of length 8.
+
+Similarly, the 3 column is a vector of integers of length 107:
+
+```{r}
+str(M1[,3])
+```
+
+##Introduction to subsetting
+
+For the above matrix example we specified a particular row or column and got a vector.  
+
+##Introduction to subsetting
+
+For the above matrix example we specified a particular row or column and got a vector.  
+
+We can specify a collection of rows or columns:
+
+```{r}
+str(M1[,1:3])
+```
+
+##Introduction to subsetting
+For the above matrix example we specified a particular row or column and got a vector.  
+We can specify a collection of rows or columns:
+```{r}
+str(M1[,1:3])
+```
+This is a matrix with 107 rows and 3 columns:
+```{r}
+dim(M1[,1:3])
+str(M1[,1:3])
+```
+
+##Guess dimensions
+
+```{r, eval=FALSE}
+M1[2:4,1:3]
+```
+
+##Guess dimensions
+
+```{r, eval=FALSE}
+M1[2:4,1:3]
+```
+
+```{r}
+str(M1[2:4,1:3])
+```
+
+##Guess dimensions
+
+```{r, eval=FALSE}
+M1[2:4,1:3]
+```
+
+```{r}
+str(M1[2:4,1:3])
+```
+
+```{r}
+M1[2:4,1:3]
+```
+
+##Data frames
+
+Here is another example from this year's CRT
+```{r}
+load("~/Classes/16-17/Fall/EDA2016/Data/DF1")
+str(DF1)
+```
+
+##Data frames
+
+This is an example of a *data frame*: a collection of vectors of the same length, but possibly different data type.
+
+In the above, we have (column) vectors which are integer and (column) vectors which are factor.  
+
+##Data frames
+
+This is an example of a *data frame*: a collection of vectors of the same length, but possibly different data type.
+
+In the above, we have (column) vectors which are integer and (column) vectors which are factor.  
+
+As with matrices, we can refer to columns by number:
+
+```{r}
+str(DF1[,2])
+```
+
+##Data frames
+
+This is an example of a *data frame*: a collection of vectors of the same length, but possibly different data type.
+
+In the above, we have (column) vectors which are integer and (column) vectors which are factor.  
+
+As with matrices, we can refer to columns by number:
+
+```{r}
+str(DF1[,2])
+```
+
+We can also refer to columns by name:
+
+```{r}
+str(DF1$Percent)
+```
+
+##A note on factor types
+
+Factors are used to represent categorical values.  
+
+##A note on factor types
+
+Factors are used to represent categorical values.  
+
+A factor vector has components which take values in a given set (for example, race or sex or percent correct).  
+
+##A note on factor types
+
+Factors are used to represent categorical values.  
+
+A factor vector has components which take values in a given set (for example, race or sex or percent correct).  
+
+R codes the values with integers to speed analysis.
+
+Example:
+
+```{r}
+head(DF1$Percent)
+```
+
+##A note on factor types
+
+Example:
+
+```{r}
+head(DF1$Percent)
+```
+
+We can see what's behind the symbol:
+
+```{r}
+head(as.numeric(DF1$Percent))
+```
+
+This is a useful introduction:  https://www.r-bloggers.com/data-types-part-3-factors/
+
+##Data frames
+
+We have seen examples of data frames before:
+
+```{r}
+SMATrafficViolation.csv <- read.csv("~/Classes/16-17/Fall/EDA2016/Data/SMATrafficViolation.csv")
+str(SMATrafficViolation.csv)
+```
+
+Thus, SMATrafficViolation.csv is also a *data frame.*
+
+##Lists
+
+A list is a vector of objects:
+```{r}
+ListEx <- list(list(DF1), DF1,v2)
+str(ListEx)
+```
+
+
+##Lists
+
+A list is a vector of objects:
+```{r}
+ListEx <- list(list(DF1), DF1,v2)
+class(ListEx)
+```
+
+We have already seen an example:
+
+```{r, eval=FALSE}
+class (TrafficData.json)
+```
+
+##Lists
+
+We have already seen an example:
+
+```{r, eval=FALSE}
+class (TrafficData.json)
+```
+
+What about 
+```{r, eval=FALSE}
+DF1[2,]
+```
+
+##Lists
+
+We have already seen an example:
+
+```{r, eval=FALSE}
+class (TrafficData.json)
+```
+
+```{r}
+DF1[2,]
+```
+
+##Lists
+
+We have already seen an example:
+
+```{r, eval=FALSE}
+class (TrafficData.json)
+```
+
+```{r}
+DF1[2,]
+```
+
+We can coerce this to be a list:
+
+```{r}
+str(as.list(DF1[2,]))
+```
+
+##Lists
+
+Now we can now give an example of why it is important to keep track of data structures via examples we have already implicitly worked out.  
+
+Suppose we try to write DF1 to memory:
+
+```{r,eval=FALSE}
+write(DF1, file = "~/Classes/16-17/Fall/EDA2016/Data/EXP")
+```
+
+##Lists
+
+```{r,eval=FALSE}
+write(DF1, file = "~/Classes/16-17/Fall/EDA2016/Data/EXP")
+```
+
+This will throw an error.  The reason is that the factor variable is intrepreted as a list.
+
+This is why we used "save".
+
+##Lists
+
+```{r,eval=FALSE}
+write(DF1, file = "~/Classes/16-17/Fall/EDA2016/Data/EXP")
+```
+
+This will throw an error.  The reason is that the factor variable is interpreted as a list.
+
+This is why we used "save".
+
+"save"" is not as fast as "write", but it takes a variety of R objects.
+

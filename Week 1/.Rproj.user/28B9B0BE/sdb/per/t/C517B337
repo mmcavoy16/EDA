@@ -1,0 +1,21 @@
+{
+    "collab_server" : "",
+    "contents" : "?melt\nx <- 2\nx\n?reshape\n",
+    "created" : 1472146007768.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "4043168626",
+    "id" : "C517B337",
+    "lastKnownWriteTime" : 1472146199,
+    "last_content_update" : 1472146199850,
+    "path" : "C:/Users/homur/OneDrive/New College/EDA/Week 1/practical-tools-attempts.r",
+    "project_path" : "practical-tools-attempts.r",
+    "properties" : {
+        "tempName" : "Untitled1"
+    },
+    "relative_order" : 3,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}

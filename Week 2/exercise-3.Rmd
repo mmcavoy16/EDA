@@ -1,0 +1,90 @@
+---
+title: "exercise-3"
+author: "Matthew McAvoy"
+date: "August 30, 2016"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Exercise 3
+
+#```{r}
+#library(XML)
+#```
+
+
+We begin by changing to the working directory and reading in the Diabetes data.
+```{r}
+setwd("C:/Users/homur/OneDrive/New College/EDA/Week 2/dataset_diabetes/dataset_diabetes/")
+DiabetesData <- read.csv(file="diabetic_data.csv",head=TRUE,sep=",")
+```
+
+## 2. 
+The following commands converts our file into a data frame, then looks for all the empty values in the data.
+```{r}
+DiabetesDataFrame <- data.frame(DiabetesData)
+#str(DiabetesDataFrame)
+emptyvals <- sapply(DiabetesDataFrame, is.null)
+emptyvals
+```
+
+## 3. 
+We subset on number-emergencies and sum it. Along with finding the number of entries in the original data, we can divide the two to acquire the percent admitted.
+```{r}
+subsetAdmissions <- DiabetesDataFrame["number_emergency"]
+
+x1 <- nrow(DiabetesDataFrame) # 101766 rows, each for a patient
+x2 <- sum(subsetAdmissions) # 20133 patients that have been admitted
+percentAdmissions <- x2/x1
+```
+
+```{r}
+cat('The percentage of admitted patients from the emergency room is', percentAdmissions)
+```
+
+
+## 4. 
+To find the mode, we need to use a function. Found online at 'http://www.tutorialspoint.com/r/r_mean_median_mode.htm'
+```{r}
+# Create the function.
+getmode <- function(v) {
+   uniqv <- unique(v)
+   uniqv[which.max(tabulate(match(v, uniqv)))]
+}
+```
+
+Then vectorizing and applying the function.
+```{r}
+modein <- getmode(DiabetesDataFrame$"admission_source_id")
+modeout <- getmode(DiabetesDataFrame$"discharge_disposition_id")
+```
+
+```{r}
+cat('We see the most common admission-id is', modein, 'and the most common discharge-id is', modeout)
+```
+
+
+Next we want to make a new data frame with admission and discharge ids so that we can select on admission id's. Then we vectorize on discharge id and find it's mode.
+```{r}
+newFrame <- DiabetesDataFrame[,c("admission_source_id","discharge_disposition_id")]
+newSubset <- subset(newFrame, admission_source_id == 7)
+mode3 <- getmode(newFrame$"discharge_disposition_id")
+```
+
+```{r}
+cat('We find the mode for this is', mode3, 'again.')
+```
+
+5. To characterize the distribution, we can vectorize on admission source and run boxplot().
+
+```{r}
+ boxplot(DiabetesDataFrame$admission_source_id)
+```
+
+
+
+
+

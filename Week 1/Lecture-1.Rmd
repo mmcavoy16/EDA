@@ -1,0 +1,478 @@
+---
+title: "EDA:  Introduction and Overview"
+author: "P. McDonald"
+date: "August 23, 2016"
+transition: rotate
+incremental: true
+output: ioslides_presentation
+---
+
+##What are Data Munging and EDA?
+
+##What are Data Munging and EDA?
+
+*Data Munging* refers to the many tasks required to bring a given data set into a form that facilitates downstream analysis.
+
+##What are Data Munging and EDA?
+
+*Data Munging* refers to the many tasks required to bring a given data set into a form that facilitates downstream analysis.
+
+*Exploratory Data Analysis (EDA)* is a vague term introduced by Tukey which refers to a collection of techniques, often involving visualization, which provide useful summaries of the characteristics of a given data set.
+
+##What are Data Munging and EDA?
+
+*Data Munging* refers to the many tasks required to bring a given data set into a form that facilitates downstream analysis.
+
+*Exploratory Data Analysis (EDA)* is a vague term introduced by Tukey which refers to a collection of techniques, often involving visualization, which provide useful summaries of the characteristics of a given data set.
+
+By *useful* we mean "leading to the construction of testable hypotheses, statistical models and a deeper understanding of the data generation phenomena."
+
+##What are Data Munging and EDA?
+
+*Data Munging* refers to the many tasks required to bring a given data set into a form that facilitates downstream analysis.
+
+*Exploratory Data Analysis (EDA)* is a vague term introduced by Tukey which refers to a collection of techniques, often involving visualization, which provide useful summaries of the characteristics of a given data set.
+
+By *useful* we mean "leading to the construction of testable hypotheses, statistical models and a deeper understanding of the data generation phenomena."
+
+For a few examples, see 
+
+https://www.stat.berkeley.edu/~brill/Papers/EDASage.pdf
+
+##What is involved in "doing data science?"
+
+##What is involved in "doing data science?"
+
+According to Hadley Wickham, (author of ggplot2 and many other important R packages)
+
+"First, you get the data in a form that you can work with ... Second, you plot the data to get a feel for what is going on ... Third, you iterate between graphics and models to build a succinct quantitative summary of the data ... Finally, you look back at what you have done, and contemplate what tools you need to do better in the future."
+
+##What is involved in "doing data science?"
+
+According to Hadley Wickham, (author of ggplot2 and many other important R packages)
+
+"First, you get the data in a form that you can work with ... Second, you plot the data to get a feel for what is going on ... Third, you iterate between graphics and models to build a succinct quantitative summary of the data ... Finally, you look back at what you have done, and contemplate what tools you need to do better in the future."
+
+http://had.co.nz/thesis/practical-tools-hadley-wickham.pdf
+
+##A word or two from a master
+
+John Tukey formalized the notion of exploratory data analysis:
+
+http://projecteuclid.org/euclid.aoms/1177704711
+
+##A word or two from a master
+
+John Tukey formalized the notion of exploratory data analysis:
+
+http://projecteuclid.org/euclid.aoms/1177704711
+
+Tukey made many important contributions, among them the FFT, the five number summary, and his view on guiding principles for analyzing data:
+
+"Far better an approximate answer to the right question, which is often vague, than an exact answer to the wrong question, which can always be made precise."
+
+##A word concerning context
+
+##A word concerning context
+
+It is almost always the case that we are working on a project where munging and exploration are but part of a larger goal.
+
+##A word concerning context
+
+It is almost always the case that we are working on a project where munging and exploration are but part of a larger goal.
+
+This has important implications for what activities occur during munging and analysis and for this reason it is important to begin each project by consciously addressing 
+
+*    what is the problem to be solved and 
+*    what the *project workflow* will be.
+
+##A few more words concerning context
+
+There is a great deal written about how to organize work for a project, and/or workspace:
+
+*    Best practices for software design:  http://journals.plos.org/plosbiology/article?id=10.1371/journal.pbio.1001745
+
+*    How to organize a computational project:  http://www.ncbi.nlm.nih.gov/pubmed/19649301
+
+##A few more words concerning context
+
+There is a great deal written about how to organize work for a project, and/or workspace:
+
+*    Best practices for software design:  http://journals.plos.org/plosbiology/article?id=10.1371/journal.pbio.1001745
+
+*    How to organize a computational project:  http://www.ncbi.nlm.nih.gov/pubmed/19649301
+
+"The core guiding principle is simple:  Someone unfamiliar with your project
+should be able to look at your computer files and understand in detail what you did and why."
+
+##A few more words concerning context
+
+There is a great deal written about how to organize work for a project, and/or workspace:
+
+*    Best practices for software design:  http://journals.plos.org/plosbiology/article?id=10.1371/journal.pbio.1001745
+
+*    How to organize a computational project:  http://www.ncbi.nlm.nih.gov/pubmed/19649301
+
+"The core guiding principle is simple:  Someone unfamiliar with your project
+should be able to look at your computer files and understand in detail what you did and why."
+
+Read *PDSwR* Chapter 1.
+
+##What are the prerequisites for getting started?
+
+##What are the prerequisites for getting started?
+
+Overarching requirement:  The ability to systematically organize thought.
+
+##What are the prerequisites for getting started?
+
+Overarching requirement:  The ability to systematically organize thought.
+
+Required technical tools:
+
+*    Version control:  https://github.com/
+*    Python:  https://www.python.org/
+*    R:  https://www.r-project.org/
+*    R Studio:  https://www.rstudio.com/
+
+##What are the prerequisites?
+
+Overarching requirement:  The ability to systematically organize thought.
+
+Required technical tools:
+
+*    Version control:  https://github.com/
+*    Python:  https://www.python.org/
+*    R:  https://www.r-project.org/
+*    R Studio:  https://www.rstudio.com/
+
+Projected breakdown for the course:
+
+*    R - 80%
+*    Python - 15%
+*    Linux/Unix - 5%
+
+##R Markdown and reproducible research
+
+##R Markdown and reproducible research
+
+R Markdown is a markup language that supports *reproducible research involving R.*  
+
+##R Markdown and reproducible research
+
+R Markdown is a markup language that supports *reproducible research involving R.*  
+
+Reproducible research is the notion that, given the data and the code involved in an analysis, the conclusions of a scientific analysis should be reproducible. 
+
+##R Markdown and reproducible research
+
+R Markdown is a markup language that supports *reproducible research involving R.*  
+
+Reproducible research is the notion that, given the data and the code involved in an analysis, the conclusions of a scientific analysis should be reproducible. 
+
+R Markdown is woven into the R Studio IDE:  http://rmarkdown.rstudio.com/
+
+##R Markdown and reproducible research
+
+R Markdown is a markup language that supports *reproducible research involving R.*  
+
+Reproducible research is the notion that, given the data and the code involved in an analysis, the conclusions of a scientific analysis should be reproducible. 
+
+R Markdown is woven into the R Studio IDE:  http://rmarkdown.rstudio.com/
+
+
+The syntax is straightforward:  http://rmarkdown.rstudio.com/authoring_basics.html
+
+There are analogous tools for python: ipython notebooks.
+
+##How we will partition the semester
+
+*    Workflow and project management (5%)
+*    Structure of R (10%)
+*    Munging (40%)
+*    EDA (40%)
+*    Communication (5%)
+
+##How we will partition the semester
+
+*    Workflow and project management (5%)
+*    Structure of R (10%)
+*    Munging (40%)
+*    EDA (40%)
+*    Communication (5%)
+
+There will, of course, be a great deal of overlap.  
+
+##How we will partition the semester
+
+*    Workflow and project management (5%)
+*    Structure of R (10%)
+*    Munging (40%)
+*    EDA (40%)
+*    Communication (5%)
+
+There will, of course, be a great deal of overlap.  
+
+There will be nonlinearities (recall, Tukey's and Wickham's remarks)
+
+##An overview of munging
+
+Broadly speaking, there are two main tasks associated to munging:
+
+*    Bring the data into a format where it can be analyzed (reshaping)
+*    Assess the quality of the data (validation)
+
+##An overview of munging
+
+Broadly speaking, there are two main tasks associated to munging:
+
+*    Bring the data into a format where it can be analyzed (reshaping)
+*    Assess the quality of the data (validation)
+
+The first step is almost always the same:  you must read a file.
+
+##An overview of munging
+
+Broadly speaking, there are two main tasks associated to munging:
+
+*    Bring the data into a format where it can be analyzed (reshaping)
+*    Assess the quality of the data (validation)
+
+The first step is almost always the same:  you must read a file.
+
+Files come in many different formats (both data structure and information content).  
+
+##An overview of munging
+
+Broadly speaking, there are two main tasks associated to munging:
+
+*    Bring the data into a format where it can be analyzed (reshaping)
+*    Assess the quality of the data (validation)
+
+The first step is almost always the same:  you must read a file.
+
+Files come in many different formats (both data structure and information content).  
+
+The format is completely irrelevant if you don't know how to read any file.
+
+##An overview of munging
+
+Broadly speaking, there are two main tasks associated to munging:
+
+*    Bring the data into a format where it can be analyzed (reshaping)
+*    Assess the quality of the data (validation)
+
+The first step is almost always the same:  you must read a file.
+
+Files come in many different formats (both data structure and information content).  
+
+The format is completely irrelevant if you don't know how to read any file.
+
+Once you can read a file, it's important that you are able to manipulate what you have read.
+
+##Publically available data
+
+There is an enormous amount of publically available data out there:
+
+Examples:  http://data.worldbank.org/
+
+http://www.census.gov/data.html
+
+https://gdc-portal.nci.nih.gov/search/s
+
+##Publically available data
+
+There is an enormous amount of publically available data out there:
+
+Examples:  http://data.worldbank.org/
+
+http://www.census.gov/data.html
+
+https://gdc-portal.nci.nih.gov/search/s
+
+http://catalog.data.gov/dataset
+
+Let's dive a little deeper into the data.gov site.
+
+##Downloading and opening files
+
+Let's look at the data concerning the cost of electricity:
+
+https://catalog.data.gov/dataset/u-s-electric-utility-companies-and-rates-look-up-by-zipcode-feb-2011-57a7c/resource/778eb28b-518a-4a6c-98d4-9b20314e6b77
+
+##Downloading and opening files
+
+Let's look at the data concerning the cost of electricity:
+
+https://catalog.data.gov/dataset/u-s-electric-utility-companies-and-rates-look-up-by-zipcode-feb-2011-57a7c/resource/778eb28b-518a-4a6c-98d4-9b20314e6b77
+
+We can download the csv file by first saving the url and then feeding it to the appropriate R tool:
+
+```{r}
+url <- "http://en.openei.org/doe-opendata/dataset/3e440383-a146-49b5-978a-e699334d2e1f/resource/3f00482e-8ea0-4b48-8243-a212b6322e74/download/iouzipcodes2011.csv"
+```
+
+##Downloading and opening files
+
+Next, download to the appropriate directory:
+
+```{r, eval=FALSE}
+download.file(url, "~/Classes/16-17/Fall/EDA2016/Data/ElecCostCounty.csv")
+```
+
+##Downloading and opening files
+
+Next, download to the appropriate directory:
+
+```{r, eval=FALSE}
+download.file(url, "~/Classes/16-17/Fall/EDA2016/Data/ElecCostCounty.csv")
+```
+
+Finally, read the data into R:
+
+/```{r}
+data1 <- read.csv("~/Classes/16-17/Fall/EDA2016/Data/ElecCostCounty.csv",
+                  header=TRUE)
+/```
+
+##Downloading and opening files
+
+Next, download to the appropriate directory:
+
+/```{r, eval=FALSE}
+download.file(url, "~/Classes/16-17/Fall/EDA2016/Data/ElecCostCounty.csv")
+/```
+
+Finally, read the data into R:
+
+/```{r}
+data1 <- read.csv("~/Classes/16-17/Fall/EDA2016/Data/ElecCostCounty.csv",
+                  header=TRUE)
+/```
+
+Alternatively, we can read directly into working memory without downloading:
+
+/```{r,eval =FALSE}
+data2 <- read.csv(url, header=TRUE)
+/```
+
+##Data provenance
+
+Whenever you download data, you should be sure that you record, at a minimum, the address and time of download.
+
+##Data provenance
+
+Whenever you download data, you should be sure that you record, at a minimum, the address and time of download.
+
+This is not hard:
+
+/```{r}
+ElecCostProvenance <- paste("Downloaded from", url, "At", Sys.time(), sep = " ")
+write(ElecCostProvenance, "~/Classes/16-17/Fall/EDA2016/Data/ElecCostProvenance")
+/```
+
+##Data provenance
+
+Whenever you download data, you should be sure that you record, at a minimum, the address and time of download.
+
+This is not hard:
+
+/```{r}
+ElecCostProvenance <- paste("Downloaded from", url, "At", Sys.time(), sep = " ")
+write(ElecCostProvenance, "~/Classes/16-17/Fall/EDA2016/Data/ElecCostProvenance")
+/```
+
+Data provenance is becoming a serious issue:
+
+http://harvardforest.fas.harvard.edu:8080/exist/apps/datasets/showData.html?id=hf091
+
+##Preliminary R resources
+
+There are lots of resources to get started:
+
+*    Tutorials for loading data:  https://www.datacamp.com/community/tutorials/r-data-import-tutorial#gs.TeB5CeU
+
+##Preliminary R resources
+
+There are lots of resources to get started:
+
+*    Tutorials for loading data:  https://www.datacamp.com/community/tutorials/r-data-import-tutorial#gs.TeB5CeU
+*    Books: for example, *The R Cookbook*
+
+##Preliminary R resources
+
+There are lots of resources to get started:
+
+*    Tutorials for loading data:  https://www.datacamp.com/community/tutorials/r-data-import-tutorial#gs.TeB5CeU
+*    Books: for example, *The R Cookbook*
+*    Stackexchange (google "read JSON in R")  http://stackoverflow.com/questions/2061897/parse-json-with-r
+
+##Preliminary R resources
+
+There are lots of resources to get started:
+
+*    Tutorials for loading data:  https://www.datacamp.com/community/tutorials/r-data-import-tutorial#gs.TeB5CeU
+*    Books: for example, *The R Cookbook*
+*    Stackexchange (google "read JSON in R")  http://stackoverflow.com/questions/2061897/parse-json-with-r
+*    Notes  
+
+##A first exercise
+
+Open R Studio and start a new R Markdown document.
+
+##A first exercise
+
+Open R Studio and start a new R Markdown document.
+
+Go ahead and knit the document to pdf by clicking the appropriate icon.
+
+##A first exercise
+
+Open R Studio and start a new R Markdown document.
+
+Go ahead and knit the document to pdf by clicking the appropriate icon.
+
+Use a browser to navigate to the data.gov site.
+
+##A first exercise
+
+Open R Studio and start a new R Markdown document.
+
+Go ahead and knit the document to pdf by clicking the appropriate icon.
+
+Use a browser to navigate to the data.gov site.
+
+Find the data set involving the city of Somerville, MA. traffic violations.
+
+##A first exercise
+
+Open R Studio and start a new R Markdown document.
+
+Go ahead and knit the document to pdf by clicking the appropriate icon.
+
+Use a browser to navigate to the data.gov site.
+
+Find the data set involving the city of Somerville, MA. traffic violations.
+
+1.    Read the associated CSV file into memory.
+2.    Read the associated JSON file into memory.
+
+##A first exercise
+
+Open R Studio and start a new R Markdown document.
+
+Go ahead and knit the document to pdf by clicking the appropriate icon.
+
+Use a browser to navigate to the data.gov site.
+
+Find the data set involving the city of Somerville, MA. traffic violations.
+
+1.    Read the associated CSV file into memory.
+2.    Read the associated JSON file into memory.
+
+Provide code chunks in the R Markdown document that accomplishes the above tasks.
+
+
+
+
+

@@ -1,0 +1,64 @@
+---
+title: "exercise-2"
+author: "Matthew McAvoy"
+date: "August 25, 2016"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## 1. Load XML file
+
+Requires XML to read in xml files.
+```{r}
+require("XML")
+```
+
+Sets the working directory and loads the xml file into local memory.
+```{r}
+setwd("C:/Users/homur/OneDrive/New College/EDA/Week 1")
+courseData <- xmlParse("reed-courses.xml")
+```
+
+xmlToList to convert the xml file into a more usable form, topxml access's the top node, then xmlSApply to extract xml values.
+```{r}
+courseXml <- xmlToList(courseData)
+topxml <- xmlRoot(courseData)
+topxml <- xmlSApply(topxml, function(x) xmlSApply(x,xmlValue))
+```
+
+If we were to inspect it now, it would look like an xml file; meaning not very pretty. The next step converts the xml file into an R data frame for further operations.
+```{r}
+xml_df <- data.frame(t(topxml))
+head(xml_df)
+```
+
+Now upon inspection, it looks much better as a data frame. We then use the str() function to look at metadata of the xml file.
+```{r}
+str(xml_df)
+```
+
+From this, we can answer some of the questions.
+
+2. There are 31 distinct subjects listed in the document.
+
+4. There are 136 distinct insturctors listed.
+
+Using the following summary, we see an empty field in instructor, which allows us to answer number 3.
+
+3. empty row corresponds to professor names of NULL = 15.
+
+```{r}
+summary(xml_df)
+```
+
+
+
+
+
+
+
+
+
